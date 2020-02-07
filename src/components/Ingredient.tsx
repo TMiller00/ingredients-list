@@ -2,6 +2,12 @@ import React from 'react'
 import styled from 'styled-components'
 import { RadialSelected, Next } from 'grommet-icons'
 
+export type Props = {
+  ingredient: string,
+  dosage: string,
+  origin: string
+}
+
 const Dosage = styled.div`
   font-size: 22px;
   color: #9FAFC9;
@@ -18,6 +24,7 @@ const Wrapper = styled.div`
   width: 276px;
   height: 116px;
   padding: 12px 24px 12px 12px;
+  border-bottom: 1px solid #142B6F;
 
   svg {
     fill: #142B6F;
@@ -52,26 +59,26 @@ const Title = styled.div`
   line-height: 32px;
 `
 
-const Location = styled.div`
+const Origin = styled.div`
   display: flex;
   align-items: center;
 `
 
-const LocationText = styled.div`
+const OriginText = styled.div`
   font-size: 18px;
   letter-spacing: 0;
   margin-left: 8px;
 `
 
-const Ingredient: React.FC = () => (
+const Ingredient: React.FC<Props> = ({ ingredient, dosage, origin }) => (
   <Wrapper>
     <Content>
-      <Title>Folate</Title>
-      <Dosage>600 MCG</Dosage>
-      <Location>
+      <Title>{ ingredient }</Title>
+      <Dosage>{ dosage }</Dosage>
+      <Origin>
         <RadialSelected size='small'/>
-        <LocationText>Pisticci, Italy</LocationText>
-      </Location>
+        <OriginText>{ origin }</OriginText>
+      </Origin>
     </Content>
     <Next/>
   </Wrapper>
