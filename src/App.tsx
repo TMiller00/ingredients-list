@@ -1,6 +1,6 @@
 import React from 'react';
+import Header from './components/Header'
 import Ingredient, { Props as IngredientType } from './components/Ingredient'
-
 const data = [
   {
     ingredient: 'Folate',
@@ -37,6 +37,7 @@ const data = [
 const App = () => {
   return (
     <div>
+      <Header/>
       { data.map((c: IngredientType, i: number) => <Ingredient key={i} {...c}/>) }
     </div>
   );
