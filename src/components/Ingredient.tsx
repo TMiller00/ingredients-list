@@ -1,10 +1,15 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { RadialSelected, Next } from 'grommet-icons'
 
+type Handlers = {
+  onClick: () => void
+  active: boolean
+}
+
 export type Props = {
-  ingredient: string,
-  dosage: string,
+  ingredient: string
+  dosage: string
   origin: string
 }
 
@@ -14,7 +19,21 @@ const Dosage = styled.div`
   letter-spacing: 0.53px;
 `
 
-const Wrapper = styled.div`
+const Active = css`
+  background-color: #142B6F;
+  color: white;
+
+  svg {
+    fill: white;
+    stroke: white;
+  }
+
+  ${Dosage} {
+    color: white;
+  }
+`
+
+const Wrapper = styled.div<{ active: boolean }>`
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -32,18 +51,10 @@ const Wrapper = styled.div`
   }
 
   &:hover {
-    background-color: #142B6F;
-    color: white;
-
-    svg {
-      fill: white;
-      stroke: white;
-    }
-
-    ${Dosage} {
-      color: white;
-    }
+    ${Active}
   }
+
+  ${props => props.active && Active}
 `
 
 const Content = styled.div`
@@ -70,8 +81,8 @@ const OriginText = styled.div`
   margin-left: 8px;
 `
 
-const Ingredient: React.FC<Props> = ({ ingredient, dosage, origin }) => (
-  <Wrapper>
+const Ingredient: React.FC<Props & Handlers> = ({ ingredient, dosage, origin, onClick, active }) => (
+  <Wrapper onClick={onClick} active={active}>
     <Content>
       <Title>{ ingredient }</Title>
       <Dosage>{ dosage }</Dosage>

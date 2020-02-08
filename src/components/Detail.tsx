@@ -12,8 +12,10 @@ type Props = IngredientType & {
 }
 
 const Wrapper = styled.div`
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  padding: 0 32px;
 `
 
 const Header = styled.div`
@@ -39,6 +41,27 @@ const Text = styled.div<{ caps?: boolean }>`
   text-transform: ${props => props.caps ? 'uppercase' : 'capitalize' };
 `
 
+const Benefits = styled.div`
+  box-sizing: border-box;
+  display: flex;
+  height: 195px;
+  align-items: center;
+  justify-content: center;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  padding: 32px 0;
+`
+
+const Benefit = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  width: 136px;
+  text-align: center;
+`
+
 const Detail: React.FC<Props> = (props) => {
   const { ingredient, dosage, origin, form, manufacturer, image, benefits, foundIn } = props
 
@@ -55,12 +78,14 @@ const Detail: React.FC<Props> = (props) => {
       <Text caps>DOSAGE: { dosage }</Text>
       <Text>SOURCE: { origin }</Text>
       <Text>MANUFACTURER: { manufacturer }</Text>
+      <Benefits>
       { benefits?.map((c: string, i: number) => (
-        <div key={i}>
+        <Benefit key={i}>
           <Icon text={c}/>
           <Text>{ c }</Text>
-        </div>
+        </Benefit>
       ))}
+      </Benefits>
       <Text caps>Found In</Text>
       <Text>{ foundIn }</Text>
     </Wrapper>

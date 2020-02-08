@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Header, Ingredient, Detail } from './components'
 import { Props as IngredientType } from './components/Ingredient'
@@ -11,7 +11,7 @@ const data = [
     origin: 'Pisticci, Italy',
     form: '5MTHF Glucosamine Salt',
     manufacturer: 'Gnosis',
-    benefits: ['DNA Methylation', 'Mood,', 'Brain Health'],
+    benefits: ['DNA Methylation', 'Mood', 'Brain Health'],
     foundIn: 'Lentils, avocado, and oranges',
     image
   },
@@ -74,18 +74,30 @@ const Content = styled.div`
 const Ingredients = styled.div`
   display: flex;
   flex-direction: column;
+  border-right: 1px solid #142B6F;
 `
 
-const App = () => (
-  <>
-    <Header/>
-    <Content>
-      <Ingredients>
-        { data.map((c: IngredientType, i: number) => <Ingredient key={i} {...c}/>) }
-      </Ingredients>
-      <Detail {...data[0]}/>
-    </Content>
-  </>
-);
+const App = () => {
+  const [currentDetail, setCurrentDetail] = useState(0)
+
+  return (
+    <>
+      <Header/>
+      <Content>
+        <Ingredients>
+          { data.map((c: IngredientType, i: number) => (
+            <Ingredient
+              key={i}
+              {...c}
+              active={currentDetail === i}
+              onClick={() => setCurrentDetail(i)}
+            />
+          ))}
+        </Ingredients>
+        <Detail {...data[currentDetail]}/>
+      </Content>
+    </>
+  )
+}
 
 export default App;
