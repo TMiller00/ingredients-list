@@ -27,7 +27,7 @@ const data = [
     origin: 'United Kingdom',
     form: 'Lichens',
     manufacturer: 'The GHT Companies',
-    benefits: ['Healthy Bones', 'Immune Support', 'Cognition'],
+    benefits: ['Bone Health', 'Immune Support', 'Cognition'],
     foundIn: 'Fish, milk, and fortified dairy products',
     image
   },
@@ -37,7 +37,7 @@ const data = [
     origin: 'Utah, USA',
     form: 'Ferrous Bisglycinate',
     manufacturer: 'Balchem',
-    benefits: ['Red Blood Cell', 'Formation', 'Brain Health', 'Energy'],
+    benefits: ['Red Blood Cell Formation', 'Brain Health', 'Energy'],
     foundIn: 'Beans, peas, and chard',
     image
   },
