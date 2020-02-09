@@ -19,7 +19,7 @@ const Dosage = styled.div`
   letter-spacing: 0.53px;
 `
 
-const Active = css`
+export const Active = css`
   background-color: #142B6F;
   color: white;
 

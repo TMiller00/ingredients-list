@@ -1,71 +1,9 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { Header, Ingredient, Detail } from './components'
+import initialData from './data'
+import { Header, Ingredient, Detail, AddIngredient, IngredientForm } from './components'
 import { Props as IngredientType } from './components/Ingredient'
-import image from './assets/ingredients/folate.png'
 
-const data = [
-  {
-    ingredient: 'Folate',
-    dosage: '600 mcg',
-    origin: 'Pisticci, Italy',
-    form: '5MTHF Glucosamine Salt',
-    manufacturer: 'Gnosis',
-    benefits: ['DNA Methylation', 'Mood', 'Brain Health'],
-    foundIn: 'Lentils, avocado, and oranges',
-    image
-  },
-  {
-    ingredient: 'Omega-3',
-    dosage: '320 mg',
-    origin: 'South Carolina, USA',
-    form: 'Algal Oil',
-    manufacturer: 'Algarithm Ingredients Inc.',
-    benefits: ['Immune Support', 'Heart Health', 'Brain Health'],
-    foundIn: 'Shellfish, salmon, and tuna',
-    image
-  },
-  {
-    ingredient: 'Vitamin D3',
-    dosage: '2000 iu',
-    origin: 'United Kingdom',
-    form: 'Lichens',
-    manufacturer: 'The GHT Companies',
-    benefits: ['Healthy Bones', 'Immune Support', 'Cognition'],
-    foundIn: 'Fish, milk, and fortified dairy products',
-    image
-  },
-  {
-    ingredient: 'Iron',
-    dosage: '8 mg',
-    origin: 'Utah, USA',
-    form: 'Ferrous Bisglycinate',
-    manufacturer: 'Balchem',
-    benefits: ['Red Blood Cell', 'Formation', 'Brain Health', 'Energy'],
-    foundIn: 'Beans, peas, and chard',
-    image
-  },
-  {
-    ingredient: 'Vitamin K2',
-    dosage: '90 mcg',
-    origin: 'Oslo, Norway',
-    form: 'Pure Non-Soy MK7',
-    manufacturer: 'Kappa Biosciences',
-    benefits: ['Bone Health', 'Healthy Skin', 'Heart Health'],
-    foundIn: 'Natto, hard cheese, and egg yolk',
-    image
-  },
-  {
-    ingredient: 'Magnesium',
-    dosage: '50 mg',
-    origin: 'Pisa, Italy',
-    form: 'Chelated DiMagnesium Malate',
-    manufacturer: 'Balchem',
-    benefits: ['Normal Muscle Function', 'Bone Health', 'Heart Health*'],
-    foundIn: 'Lentils, green leafy vegetables, pumpkin seeds, and almonds',
-    image
-  }
-]
 
 const Content = styled.div`
   display: flex;
@@ -79,6 +17,22 @@ const Ingredients = styled.div`
 
 const App = () => {
   const [currentDetail, setCurrentDetail] = useState(0)
+  const [data, setData] = useState(initialData)
+  const [showIngredientForm, setShowIngredientForm] = useState(false)
+
+  const handleSubmit = (event: any, item: any) => {
+    event.preventDefault()
+    setData([...data, item])
+    setShowIngredientForm(false)
+    setCurrentDetail(data.length)
+  }
+
+  const handleDetail = (index: number) => {
+    if (showIngredientForm === true) {
+      setShowIngredientForm(false)
+    }
+    setCurrentDetail(index)
+  }
 
   return (
     <>
@@ -90,11 +44,12 @@ const App = () => {
               key={i}
               {...c}
               active={currentDetail === i}
-              onClick={() => setCurrentDetail(i)}
+              onClick={() => handleDetail(i)}
             />
           ))}
+          <AddIngredient onClick={() => setShowIngredientForm(true)}/>
         </Ingredients>
-        <Detail {...data[currentDetail]}/>
+        { showIngredientForm ? <IngredientForm onSubmit={(e, item: any) => handleSubmit(e, item)}/> : <Detail {...data[currentDetail]}/> }
       </Content>
     </>
   )
