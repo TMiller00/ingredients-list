@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { AddCircle } from 'grommet-icons'
 import { Active } from './Ingredient'
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<{ active: boolean }>`
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -24,10 +24,12 @@ const Wrapper = styled.div`
   &:hover {
     ${Active}
   }
+
+  ${props => props.active && Active}
 `
 
-const Ingredient: React.FC<{ onClick: () => void }> = ({ onClick }) => (
-  <Wrapper onClick={onClick}>
+const Ingredient: React.FC<{ onClick: () => void, active: boolean }> = ({ onClick, active }) => (
+  <Wrapper active={active} onClick={onClick}>
     <AddCircle size='large'/>
     <span>Add a new ingredient</span>
   </Wrapper>

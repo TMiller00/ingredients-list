@@ -57,12 +57,12 @@ const App = () => {
             <Ingredient
               key={i}
               {...c}
-              active={currentDetail === i}
+              active={currentDetail === i && !showIngredientForm}
               onClick={() => handleDetail(i)}
               onDelete={() => handleDelete(i)}
             />
           ))}
-          <AddIngredient onClick={() => setShowIngredientForm(true)}/>
+          <AddIngredient active={showIngredientForm} onClick={() => setShowIngredientForm(true)}/>
         </Ingredients>
         { showIngredientForm ? <IngredientForm onSubmit={(e, item: any) => handleSubmit(e, item)}/> : <Detail {...data[currentDetail]}/> }
       </Content>
