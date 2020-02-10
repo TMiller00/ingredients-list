@@ -57,7 +57,7 @@ const data = [
     origin: 'Pisa, Italy',
     form: 'Chelated DiMagnesium Malate',
     manufacturer: 'Balchem',
-    benefits: ['Normal Muscle Function', 'Bone Health', 'Heart Health*'],
+    benefits: ['Normal Muscle Function', 'Bone Health', 'Heart Health'],
     foundIn: 'Lentils, green leafy vegetables, pumpkin seeds, and almonds',
     image
   }
