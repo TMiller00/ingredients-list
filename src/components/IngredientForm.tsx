@@ -21,6 +21,7 @@ const Label = styled.label`
   font-size: 24px;
   color: #3B4C7F;
   letter-spacing: 0.58px;
+  text-transform: capitalize;
 `
 
 const Input = styled.input`
@@ -28,8 +29,12 @@ const Input = styled.input`
   background: #F7F7F7;
   border: 1px solid #142B6F;
   border-radius: 8px;
-  height: 60px;
+  height: 66px;
   width: 366px;
+  font-size: 24px;
+  color: #3B4C7F;
+  letter-spacing: 0.58px;
+  padding: 0 16px;
 `
 
 const Submit = styled.input`
@@ -41,21 +46,29 @@ const Submit = styled.input`
   letter-spacing: 0.58px;
   height: 60px;
   width: 166px;
+  justify-self: end;
 `
 
-const FormInput: React.FC<{ onChange: any, label: string, value: string }> = ({ onChange, label, value }) => (
+const FormInput: React.FC<{ onChange: any, label: string, value: string, name: string }> = ({ onChange, label, value, name }) => (
   <>
     <Label>{ label }:</Label>
     <Input
       type='text'
-      name={label}
+      name={name}
       onChange={onChange}
       value={value}
     />
   </>
 )
 
-const inputs = ['ingredient', 'dosage', 'form', 'origin', 'manufacturer', 'foundIn']
+const inputs = [
+  { name: 'ingredient', label: 'ingredient name' },
+  { name: 'dosage', label: 'dosage' },
+  { name: 'form', label: 'form' },
+  { name: 'origin', label: 'source' },
+  { name: 'manufacturer', label: 'manufacturer' },
+  { name: 'foundIn', label: 'found in' },
+]
 
 const initialState = {
   ingredient: '',
@@ -74,12 +87,13 @@ const IngredientForm: React.FC<{ onSubmit: (e: any, item: any) => void }> = ({ o
   return (
     <Wrapper >
       <Form onSubmit={(e) => onSubmit(e, form)}>
-        { inputs.map((c: string, i: any) => (
+        { inputs.map((c: any, i: any) => (
           <FormInput
             key={i}
-            label={c}
-            value={form[c]}
-            onChange={(e: any) => setForm({ ...form, [c]: e.target.value })}
+            label={c.label}
+            name={c.name}
+            value={form[c.name]}
+            onChange={(e: any) => setForm({ ...form, [c.name]: e.target.value })}
           />
         ))}
         <Submit type="submit" value="Submit"/>

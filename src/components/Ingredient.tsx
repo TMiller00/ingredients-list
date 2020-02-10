@@ -1,9 +1,10 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
-import { RadialSelected, Next } from 'grommet-icons'
+import { RadialSelected, Next, FormClose } from 'grommet-icons'
 
 type Handlers = {
   onClick: () => void
+  onDelete: () => void
   active: boolean
 }
 
@@ -12,6 +13,13 @@ export type Props = {
   dosage: string
   origin: string
 }
+
+const FormCloseWrapper = styled.div`
+  display: none;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+`
 
 const Dosage = styled.div`
   font-size: 22px;
@@ -31,11 +39,16 @@ export const Active = css`
   ${Dosage} {
     color: white;
   }
+
+  ${FormCloseWrapper} {
+    display: block;
+  }
 `
 
 const Wrapper = styled.div<{ active: boolean }>`
   box-sizing: border-box;
   display: flex;
+  position: relative;
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
@@ -81,7 +94,7 @@ const OriginText = styled.div`
   margin-left: 8px;
 `
 
-const Ingredient: React.FC<Props & Handlers> = ({ ingredient, dosage, origin, onClick, active }) => (
+const Ingredient: React.FC<Props & Handlers> = ({ ingredient, dosage, origin, onClick, active, onDelete }) => (
   <Wrapper onClick={onClick} active={active}>
     <Content>
       <Title>{ ingredient }</Title>
@@ -91,6 +104,9 @@ const Ingredient: React.FC<Props & Handlers> = ({ ingredient, dosage, origin, on
         <OriginText>{ origin }</OriginText>
       </Origin>
     </Content>
+    <FormCloseWrapper>
+      <FormClose size='small' onClick={onDelete}/>
+    </FormCloseWrapper>
     <Next/>
   </Wrapper>
 )
